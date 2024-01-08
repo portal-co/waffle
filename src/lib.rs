@@ -16,6 +16,8 @@ mod ops;
 pub mod passes;
 pub mod pool;
 mod scoped_map;
+pub mod cloning;
+pub mod builder;
 
 pub use errors::*;
 pub use ir::*;
