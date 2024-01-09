@@ -764,6 +764,14 @@ pub fn compile(module: &Module<'_>) -> anyhow::Result<Vec<u8>> {
     names.functions(&func_names);
     into_mod.section(&names);
 
+    for (k, v) in module.custom_sections.iter() {
+        let c = wasm_encoder::CustomSection {
+            name: &*k,
+            data: &*v,
+        };
+        into_mod.section(&c);
+    }
+
     Ok(into_mod.finish())
 }
 

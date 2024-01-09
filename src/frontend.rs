@@ -297,7 +297,11 @@ fn handle_payload<'a>(
             extra_sections.debug_rnglists =
                 gimli::DebugRngLists::new(reader.data(), gimli::LittleEndian);
         }
-        Payload::CustomSection(_) => {}
+        Payload::CustomSection(s) => {
+            module
+                .custom_sections
+                .insert(s.name().to_owned(), s.data().to_vec());
+        }
         Payload::Version { .. } => {}
         Payload::ElementSection(reader) => {
             for element in reader {
